@@ -1,5 +1,5 @@
 pacman -S git
-pacman -S zsh mingw-w64-x86_64-starship
+pacman -S zsh mingw-w64-ucrt-x86_64-starship
 pacman -S mingw-w64-ucrt-x86_64-fzf mingw-w64-ucrt-x86_64-zoxide mingw-w64-ucrt-x86_64-bat
 
 # msys64 shell

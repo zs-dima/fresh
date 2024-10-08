@@ -16,10 +16,9 @@ Set-Alias code 'C:\dev\vscode\Code - Insiders.exe'
 # $omp_config = Join-Path $PSScriptRoot ".\theme.omp.json"
 # oh-my-posh init pwsh --config $omp_config | Invoke-Expression
 
+# Window Title
 function Invoke-Starship-PreCommand {
     $host.ui.RawUI.WindowTitle = "$env:USERNAME@$env:COMPUTERNAME $((Split-Path -Leaf $pwd))"
 }
-# export STARSHIP_CONFIG=~/example/non/default/path/starship.toml
 $ENV:STARSHIP_CONFIG = Join-Path $PSScriptRoot ".\starship.toml"
 Invoke-Expression (&starship init powershell)
-
