@@ -1,0 +1,63 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+success_symbol = '[➜](bold green)'
+error_symbol = '[✗](bold red)'
+
+[cmd_duration]
+min_time = 1000
+format = '🕝 [$duration](bold yellow)'
+
+[package]
+disabled = false
+
+[sudo]
+disabled = false
+allow_windows = true
+style = 'bold blue'
+symbol = '🧙 '
+
+[username]
+disabled = false
+show_always = false
+style_user = 'white bold'
+style_root = 'bold blue'
+format = '[$user]($style) '         # [$user]($style)
+aliases = { "Administrator" = "🧙" }
+
+
+[directory]
+truncate_to_repo = true
+
+# [docker_context]
+# disabled = true
+
+[kubernetes]
+disabled = true
+
+[nix_shell]
+disabled = true
+impure_msg = 'devbox'
+format = 'via [$symbol$state](bold blue) '
+
+[git_branch]
+ignore_branches = ['master', 'demo']
+
+# [git_status]
+# conflicted = '🏳'
+# ahead = '🏎💨'
+# behind = '😰'
+# diverged = '😵'
+# up_to_date = ''
+# untracked = '🤷'
+# stashed = ''
+# modified = '📝'
+# staged = '[+\($count\)](green)'
+# renamed = '👅'
+# deleted = '🗑'
+# disabled = false
