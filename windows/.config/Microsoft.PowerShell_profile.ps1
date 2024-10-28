@@ -16,9 +16,17 @@ Set-Alias code 'C:\dev\vscode\Code - Insiders.exe'
 # $omp_config = Join-Path $PSScriptRoot ".\theme.omp.json"
 # oh-my-posh init pwsh --config $omp_config | Invoke-Expression
 
-# Window Title
+$global:FirstCommand = $true
 function Invoke-Starship-PreCommand {
+    # Window Title
     $host.ui.RawUI.WindowTitle = "$env:USERNAME@$env:COMPUTERNAME $((Split-Path -Leaf $pwd))"
+    # Add a blank line between commands
+    if (-not $global:FirstCommand) { Write-Host "" } 
+    $global:FirstCommand = $false
 }
 $ENV:STARSHIP_CONFIG = Join-Path $PSScriptRoot ".\starship.toml"
+function Invoke-Starship-TransientFunction {
+  &starship module character
+}
 Invoke-Expression (&starship init powershell)
+Enable-TransientPrompt
