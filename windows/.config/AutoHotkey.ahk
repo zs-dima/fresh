@@ -254,11 +254,11 @@ Browser_Forward:: ; Tab <-
     ~LButton & ~RButton::Send "{Enter}"
     ~RButton & ~LButton::Send "{Delete}"
 
-    SC122:: { ;Media_Play_Pause
+    ScrollLock:: { ; SC122 Media_Play_Pause
         DllCall("PowrProf\SetSuspendState", "int", 1, "int", 1, "int", 1)
         return
     }
-
+    
     SC068:: Run "calc.exe"
 
     !g:: { ; Alt+G Generate GUID
