@@ -255,6 +255,18 @@ Browser_Forward:: ; Tab <-
     ~RButton & ~LButton::Send "{Delete}"
 
     ScrollLock:: { ; SC122 Media_Play_Pause
+        ; Make HTTP GET request before suspend
+        try {
+            url := "https://n8n.dmitrii.app/webhook/c542578f-d1e9-4ef5-90ce-b96e142a1526?action=off&push=1"
+            xhr := ComObject("WinHttp.WinHttpRequest.5.1")
+            xhr.Open("GET", url, false)
+            xhr.SetRequestHeader("User-Agent", "AutoHotkey")
+            xhr.Send()
+        }
+        catch as err {
+            MsgBox("HTTP request error: " . err.Message)
+        }
+
         DllCall("PowrProf\SetSuspendState", "int", 1, "int", 1, "int", 1)
         return
     }
