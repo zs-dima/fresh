@@ -257,7 +257,7 @@ Browser_Forward:: ; Tab <-
     ScrollLock:: { ; SC122 Media_Play_Pause
         ; Make HTTP GET request before suspend
         try {
-            url := "https://n8n.dmitrii.app/webhook/c542578f-d1e9-4ef5-90ce-b96e142a1526?action=off&push=1"
+            url := "https://n8n.dmitrii.app/webhook/c542578f-d1e9-4ef5-90ce-b96e142a1526?action=off&source=home&checkin=meckano&notify=telegram"
             xhr := ComObject("WinHttp.WinHttpRequest.5.1")
             xhr.Open("GET", url, false)
             xhr.SetRequestHeader("User-Agent", "AutoHotkey")
