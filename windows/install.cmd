@@ -8,7 +8,7 @@ setx ChocolateyToolsLocation "c:\dev\tool" /M
 choco install nerd-fonts-firacode
 
 # Tools
-choco install dagger
+# choco install dagger
 choco install fvm
 choco install dcm
 choco install git.install
@@ -17,6 +17,7 @@ choco install nodejs.install
 choco install notepadplusplus.install
 choco install winscp.install
 choco install ngrok
+choco install k3d
 
 # Shell tools
 choco install starship.install
