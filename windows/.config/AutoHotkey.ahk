@@ -1,8 +1,7 @@
 ﻿#Requires AutoHotkey v2.0
 #Warn
-#SingleInstance
+#SingleInstance Force
 
-InstallKeybdHook
 InstallKeybdHook
 ProcessSetPriority "R"
 A_HotkeyInterval := 2000 ; This is the default value (milliseconds).
@@ -16,6 +15,7 @@ opera := "ahk_class OperaWindowClass"
 vs := " - Microsoft Visual Studio"
 vs1 := " - Microsoft Visual Studio (Administrator)"
 vsCode := " - Visual Studio Code - Insiders"
+vsCursor := " - Cursor"
 androidStudio := " - Android Studio"
 ampView := "ahkfoobar_class TAmpViewMainForm"
 foobar := "foobar2000 ahk_class {97E27FAA-C0B3-4b8e-A693-ED7881E99FC1}"
@@ -115,7 +115,7 @@ Browser_Back:: ; Tab ->
         {
             Send '^{sc149}'
         }
-        else if WinActive(vsCode)
+        else if (WinActive(vsCode) or WinActive(vsCursor))
         {
             SendInput '!{sc14B}' ; Alt+Left
         }
@@ -145,7 +145,7 @@ Browser_Forward:: ; Tab <-
         {
             Send '^{sc151}'
         }
-        else if WinActive(vsCode)
+        else if WinActive(vsCode) or WinActive(vsCursor)
         {
             SendInput '!{sc14D}'
         }
@@ -170,7 +170,7 @@ Browser_Forward:: ; Tab <-
         {
             Send '^{sc014}'
         }
-        else if WinActive(vsCode)
+        else if WinActive(vsCode) or WinActive(vsCursor)
         {
             SendInput '^{sc031}'
         }
@@ -186,7 +186,7 @@ Browser_Forward:: ; Tab <-
         {
             Send '^{F4}'
         }
-        else if WinActive(vsCode) or WinActive(chrome) or WinActive(gchrome) or WinActive(ie) or WinActive(firefox) or WinActive(opera)
+        else if WinActive(vsCode) or WinActive(vsCursor) or WinActive(chrome) or WinActive(gchrome) or WinActive(ie) or WinActive(firefox) or WinActive(opera)
         {
             Send '^{sc011}'
         }
@@ -434,3 +434,43 @@ Browser_Forward:: ; Tab <-
                 ? SubStr(Chars, (Found.Len - 59)<1 ? (Found.Len - 59)-1 : (Found.Len - 59), 1) : A_LoopField
         Return NewText
     }
+
+
+
+
+; ##############################
+; VS Code window separate AppID script
+
+; --- configure this path ---
+PSV := "c:\Tool\Win\PropertySystemView.exe"
+SeparateId := "VSCode.Separate"  ; any unique text
+
+#HotIf WinActive("ahk_exe Code.exe") || WinActive("ahk_exe Code - Insiders.exe")
+
+^!F12::  ; split: give the focused window its own AppUserModelID
+{
+    hwnd := WinActive("A")
+    if !hwnd || !FileExist(PSV) {
+        MsgBox "Check PSV path or focus a VS Code window."
+        return
+    }
+    cmd := Format('"{1}" /SetPropertyWindow {2:08X} "System.AppUserModel.ID" "{3}"'
+                  , PSV, hwnd, SeparateId)
+    RunWait cmd,, "Hide"
+}
+
+^!F11::  ; rejoin: set back to VS Code’s normal AppUserModelID
+{
+    hwnd := WinActive("A")
+    if !hwnd || !FileExist(PSV) {
+        MsgBox "Check PSV path or focus a VS Code window."
+        return
+    }
+    defaultId := WinActive("ahk_exe Code - Insiders.exe")
+        ? "Microsoft.VisualStudioCode.Insiders"
+        : "Microsoft.VisualStudioCode"
+    cmd := Format('"{1}" /SetPropertyWindow {2:08X} "System.AppUserModel.ID" "{3}"'
+                  , PSV, hwnd, defaultId)
+    RunWait cmd,, "Hide"
+}
+#HotIf

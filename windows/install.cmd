@@ -29,3 +29,8 @@ choco install msys2
 # choco list > list.txt
 
 # curl, wget, git, ffmpeg, hwinfo, dart-sdk, dbeaver, android-sdk, adb, jre8, jdk8, nodejs, protoc, qbittorrent, steam, slack, vlc, vscode, telegram
+
+
+winget install -e 9NQ7512CXL7T
+py install default
+py install --configure -y
