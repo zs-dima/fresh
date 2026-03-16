@@ -1,6 +1,7 @@
 #
 # git clone https://github.com/zs-dima/fresh.git ~/fresh
 # cd ~/fresh/nix
+# echo "trusted-users = root $USER" | sudo tee -a /etc/nix/nix.conf && sudo systemctl restart nix-daemon
 # home-manager switch --flake . --impure
 # wsl --shutdown
 #
@@ -69,7 +70,7 @@
                 # Flutter desktop (Linux)
                 clang ninja xz
                 gtk3 glib pcre2 util-linux libsecret jsoncpp
-                xorg.libX11
+                libx11
               ];
 
               sessionVariables = {
@@ -120,9 +121,11 @@
               enableBashIntegration = true;
             };
 
-            programs.git = {
+            programs.git.enable = true;
+
+            programs.delta = {
               enable = true;
-              delta.enable = true;
+              enableGitIntegration = true;
             };
 
             # ── Neovim overrides ──
