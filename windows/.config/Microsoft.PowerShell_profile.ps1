@@ -21,7 +21,7 @@ function Invoke-Starship-PreCommand {
     # Window Title
     $host.ui.RawUI.WindowTitle = "$env:USERNAME@$env:COMPUTERNAME $((Split-Path -Leaf $pwd))"
     # Add a blank line between commands
-    if (-not $global:FirstCommand) { Write-Host "" } 
+    if (-not $global:FirstCommand) { Write-Host "" }
     $global:FirstCommand = $false
 }
 $ENV:STARSHIP_CONFIG = Join-Path $PSScriptRoot ".\starship.toml"
@@ -30,3 +30,17 @@ function Invoke-Starship-TransientFunction {
 }
 Invoke-Expression (&starship init powershell)
 Enable-TransientPrompt
+
+
+
+function Start-OracleTunnels {
+    Start-Process -WindowStyle Hidden cloudflared -ArgumentList "access tcp --hostname db.dmitrii.app --url 127.0.0.1:15433"
+    Write-Host "✅ DB tunnel started on 127.0.0.1:15433"
+}
+Set-Alias db Start-OracleTunnels
+
+function Stop-OracleTunnels {
+    Get-Process cloudflared -ErrorAction SilentlyContinue | Stop-Process
+    Write-Host "🛑 Tunnels stopped"
+}
+Set-Alias db-stop Stop-OracleTunnels
