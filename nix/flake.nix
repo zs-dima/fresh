@@ -5,30 +5,81 @@
 # wsl --shutdown
 #
 {
+  description = "Cross-platform development environment";
+
+  nixConfig = {
+    extra-substituters = [ "https://nix-community.cachix.org" ];
+    extra-trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim.url = "github:purplenoodlesoop/neovim";
+    neovim = {
+      url = "github:purplenoodlesoop/neovim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, neovim, ... }:
+  outputs = { nixpkgs, home-manager, neovim, fenix, ... }:
     let
       system = builtins.currentSystem;
       pkgs = nixpkgs.legacyPackages.${system};
-      isDarwin = builtins.match ".*darwin" system != null;
+      isDarwin = pkgs.stdenv.isDarwin;
       username = builtins.getEnv "USER";
+
+      rustToolchain = fenix.packages.${system}.stable.withComponents [
+        "cargo" "clippy" "rustc" "rustfmt" "rust-src" "rust-analyzer"
+      ];
     in {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
           neovim.homeManagerModules.default
           {
-            home.username = username;
-            home.homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
-            home.stateVersion = "24.11";
+            home = {
+              inherit username;
+              homeDirectory = if isDarwin then "/Users/${username}" else "/home/${username}";
+              stateVersion = "24.11";
+
+              packages = with pkgs; [
+                # CLI
+                gh jq eza bat fd ripgrep lazygit
+
+                # Build tools
+                pkg-config cmake
+
+                # Rust
+                rustToolchain
+                openssl.dev
+                cargo-watch cargo-expand taplo
+
+                # Dart
+                dart
+              ] ++ lib.optionals (!isDarwin) [
+                # Flutter desktop (Linux)
+                clang ninja xz
+                gtk3 glib pcre2 util-linux libsecret jsoncpp
+                xorg.libX11
+              ];
+
+              sessionVariables = {
+                CHROME_EXECUTABLE =
+                  if isDarwin
+                  then "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+                  else "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe";
+              };
+            };
+
             programs.home-manager.enable = true;
 
             # ── Shell ──
@@ -45,10 +96,6 @@
             };
 
             # ── Tools ──
-            home.packages = with pkgs; [
-              git gh jq eza bat fd ripgrep lazygit fzf
-            ];
-
             programs.fzf = {
               enable = true;
               enableZshIntegration = true;
@@ -67,12 +114,15 @@
             };
             xdg.configFile."starship.toml".source = ../.config/starship.toml;
 
-            # ── Chrome ──
-            home.sessionVariables = {
-              CHROME_EXECUTABLE =
-                if isDarwin
-                then "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-                else "/mnt/c/Program Files/Google/Chrome/Application/chrome.exe";
+            programs.zoxide = {
+              enable = true;
+              enableZshIntegration = true;
+              enableBashIntegration = true;
+            };
+
+            programs.git = {
+              enable = true;
+              delta.enable = true;
             };
 
             # ── Neovim overrides ──
@@ -107,12 +157,11 @@
               }
             '';
 
-            programs.lazyvim.extras.lang.rust = {
-              enable = true;
-              installDependencies = true;
-            };
+            programs.lazyvim.extras.lang.rust.enable = true;
           }
         ];
       };
+
+      formatter.${system} = pkgs.nixfmt-rfc-style;
     };
 }
