@@ -1,11 +1,9 @@
 {
     "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": 
-    [
+    "$schema": "https://aka.ms/terminal-profiles-schema-preview",
+    "actions": [
         {
-            "command": 
-            {
+            "command": {
                 "action": "copy",
                 "singleLine": false
             },
@@ -20,8 +18,7 @@
             "id": "User.find"
         },
         {
-            "command": 
-            {
+            "command": {
                 "action": "splitPane",
                 "split": "auto",
                 "splitMode": "duplicate"
@@ -32,8 +29,7 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{57c5e804-1dc0-4f12-9774-6e106c13a2b3}",
-    "keybindings": 
-    [
+    "keybindings": [
         {
             "id": "User.copy.644BA8F2",
             "keys": "ctrl+c"
@@ -51,28 +47,37 @@
             "keys": "alt+shift+d"
         }
     ],
-    "multiLinePasteWarning": false,
-    "newTabMenu": 
-    [
+    "newTabMenu": [
         {
             "type": "remainingProfiles"
+        },
+        {
+            "allowEmpty": false,
+            "entries": [
+                {
+                    "commandline": null,
+                    "name": null,
+                    "source": "Windows.Terminal.SSH",
+                    "type": "matchProfiles"
+                }
+            ],
+            "icon": "\ue969",
+            "inline": "auto",
+            "name": "SSH",
+            "type": "folder"
         }
     ],
-    "profiles": 
-    {
-        "defaults": 
-        {
-            "colorScheme": "Campbell (modified)",
-            "font": 
-            {
+    "profiles": {
+        "defaults": {
+            "colorScheme": "Catppuccin Mocha",
+            "font": {
                 "face": "FiraCode Nerd Font",
                 "size": 14
             }
         },
-        "list": 
-        [
+        "list": [
             {
-                "colorScheme": "Campbell (modified)",
+                "colorScheme": "Catppuccin Mocha",
                 "commandline": "pwsh.exe -nologo",
                 "guid": "{57c5e804-1dc0-4f12-9774-6e106c13a2b3}",
                 "hidden": false,
@@ -111,7 +116,7 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
-                "colorScheme": "Campbell (modified)",
+                "colorScheme": "Catppuccin Mocha",
                 "commandline": "ssh oracle.sky",
                 "experimental.retroTerminalEffect": false,
                 "guid": "{db911142-863d-402e-b09b-4ab971216d03}",
@@ -121,7 +126,7 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "colorScheme": "Campbell (modified)",
+                "colorScheme": "Catppuccin Mocha",
                 "commandline": "ssh oracle.sea",
                 "experimental.retroTerminalEffect": false,
                 "guid": "{945a6a39-3eed-446e-b400-18efe4535403}",
@@ -131,7 +136,7 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "colorScheme": "Campbell (modified)",
+                "colorScheme": "Catppuccin Mocha",
                 "commandline": "ssh hetzner.sky",
                 "experimental.retroTerminalEffect": false,
                 "guid": "{5c5398a1-c327-4a9e-885e-f147041a7e17}",
@@ -141,7 +146,7 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "colorScheme": "Campbell (modified)",
+                "colorScheme": "Catppuccin Mocha",
                 "commandline": "ssh hetzner.sea",
                 "experimental.retroTerminalEffect": false,
                 "guid": "{32ac240b-5cea-474e-9479-a7a3528c527a}",
@@ -151,17 +156,27 @@
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "colorScheme": "Campbell (modified)",
+                "colorScheme": "Catppuccin Mocha",
+                "commandline": "ssh home.nas",
+                "experimental.retroTerminalEffect": false,
+                "guid": "{c8a93901-302e-4622-bd87-91b63a8b2e95}",
+                "hidden": false,
+                "icon": "ms-appx:///ProfileIcons/{b453ae62-4e3d-5e58-b989-0a998ec441b8}.png",
+                "name": "home.nas",
+                "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "colorScheme": "Catppuccin Mocha",
                 "commandline": "ssh esxi.lan",
                 "experimental.retroTerminalEffect": false,
                 "guid": "{084c1dcc-bd73-4a4c-94e3-b9bb5c7cba93}",
                 "hidden": false,
                 "icon": "ms-appx:///ProfileIcons/{b453ae62-4e3d-5e58-b989-0a998ec441b8}.png",
-                "name": "esxi",
+                "name": "home.esxi",
                 "startingDirectory": "%USERPROFILE%"
             },
             {
-                "colorScheme": "Campbell (modified)",
+                "colorScheme": "Catppuccin Mocha",
                 "commandline": "ssh msk.sky",
                 "experimental.retroTerminalEffect": false,
                 "guid": "{66912bf5-e970-43dd-95d6-3d74cd8b95de}",
@@ -190,39 +205,117 @@
                 "source": "VSDebugConsole"
             },
             {
-                "guid": "{17bf3de4-5353-5709-bcf9-835bd952a95e}",
+                "guid": "{86d3ee8c-d2ea-5ce1-8d86-e12d0d7ad650}",
                 "hidden": true,
-                "name": "Ubuntu-22.04",
-                "source": "Windows.Terminal.Wsl"
+                "name": "Developer Command Prompt for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{4ff56d04-d9cf-57ea-bae2-ad396374e7e3}",
-                "hidden": false,
-                "name": "Ubuntu 22.04.5 LTS",
-                "source": "CanonicalGroupLimited.Ubuntu22.04LTS_79rhkp1fndgsc"
+                "guid": "{d6ed0c6d-829f-5d53-b754-278ba0573a7a}",
+                "hidden": true,
+                "name": "Developer PowerShell for VS 18",
+                "source": "Windows.Terminal.VisualStudio"
             },
             {
-                "guid": "{76a612dc-6eac-5ff2-b0ab-219605c9c998}",
-                "hidden": false,
-                "name": "rancher-desktop",
+                "guid": "{b4616302-287f-5349-a22a-142658c04b2d}",
+                "hidden": true,
+                "name": "SSH - home.esxi",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{03d22408-3080-5896-951d-d2616ff1742d}",
+                "hidden": true,
+                "name": "SSH - home.nas",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{b874b78e-1606-5e1e-b691-2df6b0407414}",
+                "hidden": true,
+                "name": "SSH - oracle22.sky",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{7c0d6c15-0f8b-5957-b6b6-ec874cdccf18}",
+                "hidden": true,
+                "name": "SSH - oracle.sky",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{cb3c9e2f-7a65-575e-bd1a-728c70c9c13a}",
+                "hidden": true,
+                "name": "SSH - hetzner.sky",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{876e9386-5374-5d55-86e4-38d7445ed723}",
+                "hidden": true,
+                "name": "SSH - hetzner.sea",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{de884a22-59a5-56fb-b27b-61c63696cd40}",
+                "hidden": true,
+                "name": "SSH - esxi.lan",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{9e2ac4da-6673-582d-bd86-d4c82b143894}",
+                "hidden": true,
+                "name": "SSH - neo.omoikane",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{2a96bb13-ee17-5998-b157-e375f60b94a4}",
+                "hidden": true,
+                "name": "SSH - neo.ragnarok",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{c1c350c2-a65f-5925-be14-a4bd1340d6e3}",
+                "hidden": true,
+                "name": "SSH - neo.vishnu",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{73797a5c-44b1-50fd-8c09-cd293ab944ba}",
+                "hidden": true,
+                "name": "SSH - neo.prod",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{45b39dcc-c829-54d6-8746-57bf765d9ef5}",
+                "hidden": true,
+                "name": "SSH - jk.prod",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{26b9e424-99d5-5f20-bf5c-dd23a45ca754}",
+                "hidden": true,
+                "name": "SSH - msk.sky",
+                "source": "Windows.Terminal.SSH"
+            },
+            {
+                "guid": "{4ed32994-6ab3-52a3-b491-bde3355d1515}",
+                "hidden": true,
+                "name": "Ubuntu",
                 "source": "Microsoft.WSL"
             },
             {
-                "guid": "{a536597b-6d5c-51a8-a9bf-b507ba3484bf}",
-                "hidden": false,
-                "name": "rancher-desktop-data",
-                "source": "Microsoft.WSL"
+                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+                "hidden": true,
+                "name": "Ubuntu",
+                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
             },
             {
-                "guid": "{71c9c306-a725-573d-8691-2b9e415e5264}",
+                "guid": "{755159a3-6c97-5fe8-b7ec-1fe51b7eeee3}",
                 "hidden": false,
-                "name": "rancher-desktop",
-                "source": "Microsoft.WSL"
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL",
+                "startingDirectory": "~"
             }
         ]
     },
-    "schemes": 
-    [
+    "schemes": [
         {
             "background": "#000000",
             "black": "#0C0C0C",
@@ -245,7 +338,52 @@
             "selectionBackground": "#FFFFFF",
             "white": "#CCCCCC",
             "yellow": "#C19C00"
+        },
+        {
+            "background": "#000000",
+            "black": "#45475A",
+            "blue": "#89B4FA",
+            "brightBlack": "#585B70",
+            "brightBlue": "#89B4FA",
+            "brightCyan": "#94E2D5",
+            "brightGreen": "#A6E3A1",
+            "brightPurple": "#F5C2E7",
+            "brightRed": "#F38BA8",
+            "brightWhite": "#A6ADC8",
+            "brightYellow": "#F9E2AF",
+            "cursorColor": "#F5E0DC",
+            "cyan": "#94E2D5",
+            "foreground": "#CDD6F4",
+            "green": "#A6E3A1",
+            "name": "Catppuccin Mocha",
+            "purple": "#F5C2E7",
+            "red": "#F38BA8",
+            "selectionBackground": "#585B70",
+            "white": "#BAC2DE",
+            "yellow": "#F9E2AF"
         }
     ],
-    "themes": []
+    "themes": [
+        {
+            "name": "Catppuccin Mocha",
+            "tab": {
+                "background": "#1E1E2EFF",
+                "iconStyle": "default",
+                "showCloseButton": "always",
+                "unfocusedBackground": null
+            },
+            "tabRow": {
+                "background": "#181825FF",
+                "unfocusedBackground": "#11111BFF"
+            },
+            "window": {
+                "applicationTheme": "dark",
+                "experimental.rainbowFrame": false,
+                "frame": null,
+                "unfocusedFrame": null,
+                "useMica": false
+            }
+        }
+    ],
+    "warning.multiLinePaste": "never"
 }
